@@ -158,20 +158,5 @@ export class ActivityListComponent implements OnInit {
           }
         });
   }
-
-  /*
-
-  getSessionData(varName: string){
-    return sessionStorage.getItem(varName);
-  }
-
-  updateUserSignedIn():void{
-    var s = sessionStorage.getItem("username");
-    if ( s == null || s.length==0 )
-      this.userSignedIn = false;
-    else
-      this.userSignedIn = true;
-  }
-  */
 }
 
