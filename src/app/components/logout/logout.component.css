@@ -1,0 +1,29 @@
+p.school_name {
+  font-family: Apple Chancery, cursive;
+  font-size: 12pt;
+}
+
+p.text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+}
+
+.item1 { 
+  grid-area: logo; 
+}
+
+.item2 { 
+  grid-area: desc; 
+  position: relative;
+  top: 20%;
+}
+
+.grid-container {
+display: grid;
+grid-template-areas:
+  'logo desc desc';
+gap: 5pt;
+background-color: rgba(255, 255, 255, 0.8);
+padding: 5pt;
+}
+

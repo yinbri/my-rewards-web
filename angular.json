@@ -74,6 +74,10 @@
               "browserTarget": "my-rewards:build:development"
             }
           },
+          "options":{
+            "browserTarget": "my-rewards:build",
+            "proxyConfig": "src/proxy.config.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -102,5 +106,7 @@
       }
     }
   },
-  "defaultProject": "my-rewards"
+  "cli": {
+    "analytics": false
+  }
 }

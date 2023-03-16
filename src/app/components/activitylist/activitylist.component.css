@@ -1,7 +1,8 @@
+/*
 .ag-theme-alpine {
     --ag-header-height: 30px;
     --ag-header-foreground-color: white;
-    --ag-header-background-color: dark;
+    --ag-header-background-color: #5f9cd9;
     --ag-header-cell-hover-background-color: rgb(80, 40, 140);
     --ag-header-cell-moving-background-color: rgb(80, 40, 140);
 }
@@ -15,3 +16,4 @@
 .ag-theme-alpine .ag-header-cell {
     font-size: 18px;
 }
+*/

@@ -1,0 +1,84 @@
+.title {
+    font-size: 12pt;
+    border: 0px outset white;
+    background-color: white; 
+    text-align: center;
+    color: black;
+}
+
+.headrow {
+    font-size: 10pt;
+    color: white;
+    display: table;
+    width: 100%; /*Optional*/
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    table-layout: fixed; /*Optional*/
+    border-width: 5px;
+    border-style: solid;
+    border-spacing: 10px; /*Optional*/
+    background-color: rgb(75, 75, 100); /*Optional*/
+    border-radius: 10px;
+
+}
+.row1 {
+    font-size: 16pt;
+    color: gray;
+    display: table;
+    width: 100%; /*Optional*/
+    height: 100px;
+    line-height: 100px;
+    text-align: left;
+    table-layout: fixed; /*Optional*/
+    border-color: white;
+    border-width: 5px;
+    border-style: solid;
+    border-spacing: 10px; /*Optional*/
+    background-color: #B3CEE5; /*Optional*/
+    border-radius: 10px;
+}
+.row2 {
+    font-size: 16pt;
+    color: gray;
+    display: table;
+    width: 100%; /*Optional*/
+    height: 100px;
+    line-height: 100px;
+    text-align: left;
+    table-layout: fixed; /*Optional*/
+    border-color: white;
+    border-width: 5px;
+    border-style: solid;
+    border-spacing: 10px; /*Optional*/    
+    background-color: #ADD8E6; /*Optional*/
+    border-radius: 10px;
+
+}
+.row3 {
+    font-size: 14pt;
+    color: white;
+    display: table;
+    width: 100%; /*Optional*/
+    height: 100px;
+    line-height: 100px;
+    text-align: left;
+    table-layout: fixed; /*Optional*/
+    border-color: white;
+    border-width: 5px;
+    border-style: solid;
+    border-spacing: 10px; /*Optional*/
+    background-color: #6699CC; /*Optional*/
+    border-radius: 10px;
+
+}
+
+.col1 {
+    display: table-cell;
+    width: 25%;
+}
+
+.col2 {
+    display: table-cell;
+    width: 50%;
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "id": "1000",
+        "date": "2023-01-01",
+        "place" : "Stadium",
+        "description": "Fund raising event."
+    },
+    {
+        "id": "1001",
+        "date": "2023-01-05",
+        "place" : "Math Building",
+        "description": "Math circle event."
+    },
+    {
+        "id": "1002",
+        "date": "2023-02-01",
+        "place" : "Stadium",
+        "description": "Fund raising event."
+    },
+    {
+        "id": "1003",
+        "date": "2023-02-20",
+        "place" : "Engineering Building",
+        "description": "Bridge building competition"
+    }
+]

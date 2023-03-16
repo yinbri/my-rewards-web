@@ -1,0 +1,26 @@
+
+
+<div *ngIf="!isUserSignedIn">
+  <p> Student login required to veiw this page</p>
+</div>
+
+<div class="row" *ngIf="isUserSignedIn">
+  <div class="col"><p>Welcome {{getUserName()}}</p></div>
+  <div class="col"><p>Total pending points: {{total_pending}}</p></div>
+  <div class="col"><p>Total earned points: {{total_earned}}</p></div>
+</div>
+
+<div *ngIf="isUserSignedIn">
+<ag-grid-angular
+   style="width:100%; height: 500px;"
+   class="ag-theme-alpine"
+   [columnDefs]="columnDefs"
+   [defaultColDef]="defaultColDef"
+   [rowData]="rowData"
+   [rowSelection]="'multiple'"
+   [animateRows]="true"
+   (gridReady)="onGridReady($event)"
+   (cellClicked)="onCellClicked($event)"
+   [pagination]="true"
+ ></ag-grid-angular>
+</div>
