@@ -65,63 +65,46 @@ It is used by this project to detect whether mobile browser is used. This projec
 # Code documentation
 
 ### proxy.config.json
-It is a proxy that proxy all API request from Angular components to the Python API
-All requests that the "/api/" included in URL will be proxyed to the Python API
+It is a proxy that proxy all API request from Angular components to the Python API hosted by the other project. All requests that have the "/api/" keyword included in URL will be proxyed to the Python API.
 
 ### index.html
-This is the entry point and it contains the whole Angular app using a tag of <app-root>.
+This is the entry point and it contains the Angular app itself using a tag of <app-root>.
 
 ### app.modules.ts
-It contains all modules created in this application.
-It also contains all imported modules including AgGridModule.
+It contains all modules created in this application and imported modules including the AgGridModule.
 
 ### app.component.ts
-Its uses the ngx-device-detector library to determine whether the application is processing a request from mobile devices
-It record the isMobile indicator into the commonService class as well.
+It uses the ngx-device-detector library to determine whether the application is processing a request from mobile browser and if yes, it sets the value of the isMobile indicator to be True and save it in the commonService class as well.
 
 ### app.component.html
-It is the home page of the application that contains navigation bar.
-It hides "About" for mobile users due to limited screen size on mobile
-It only shows "Sign Out", "Activities", adn "Rewards" menu for signed in users.
-It uses the *ngIf Angular tag to hide HTML elements
+It is the home page of the application that contains the navigation bar, which displays "Sign Out", "Activities",  "Rewards" and "Admin" menu for signed in users. It uses the *ngIf Angular tag to hide HTML elements, such as it hides "About" for mobile users due to limited screen size on mobile.
 
 ### app-routing.module.ts
 It contains the Angular Routes that maps an incoming URL to an Angular component.
 
 ### about
-This component contains the static contents in the about.component.html file
-It has my school's lego, name and usage of this application
+This component contains the static contents in the about.component.html file. It has my school's lego, name and instructions of how to use this application.
 
 ### login
-ogin.component.html present email and password for user to enter
-If username and password entered can't be found it will present error message
-It binds the two data fields (username, password) on HTML with the data fields in the login.component.ts
-login.component.ts processes login
-It calls the commonService to process login
-If a login is a success, it records authentication as yes in the commonService and save username into session storage
-It also navigates to the activity component so that user can see the activities after a successful log in.
-It support enrollment as well.
+The login.component.html presents email and password for user to enter. If username and password entered can't be found it will present error message. It binds the two data fields (username, password) on HTML with the data fields in the login.component.ts. The login.component.ts calls the commonService to process login request. If a login is a success, it records authentication as yes in the commonService and save username into session storage. It also navigates to the activity component so that user can see the activities after a successful log in. The same component supports enrollment as well.
 
 ### activitylist
-activitylist.html use the AgGrid control to present activity list.
-The AgGrid has a tag named as <ag-grid-angular>. The list of parameters in the tag is to support adjustment of the default behaviro ofthe grid.
-Two key inputs are [columnDef] that provides a list of columns, and [rowData] that provides that actual data of the list.
-activitylist.ts contains column definitions for the grid.
-It calls the commonService to retrieve the list of activities and assign it to the [rowData]
+The activitylist.html uses the AgGrid control to present activity list. The AgGrid has a tag named as <ag-grid-angular>. The list of parameters in the tag is to support adjustment of the default behavior of the grid. Two key inputs are [columnDef] that provides a list of columns, and [rowData] that provides that actual data for the grid to present. 
+The activitylist.ts contains column definitions of the grid. It also calls the commonService to retrieve the list of activities and assign it to the [rowData].
 
 ### Refer to source codes for other components
 All code follow the same Angular component structure with each component contains ts file, html file and css file.
 
 # start the Angular web application
 ```
-    >cd my-rewards
+    >cd my-rewards-web
     >ng serve --port 8081
 ```
 
 # access the web application from browser
 ```
     http://localhost:8081
-    or
+    or try the following if localhost does not work on your browser
     http://[::1]:8081
 ```
 
