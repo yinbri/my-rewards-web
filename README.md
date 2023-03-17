@@ -1,5 +1,5 @@
 # Context
-This project illustrate how to develop a web applicaiton with Angular and this is my first using Angular.
+This project illustrate how to develop a web applicaiton with Angular and this is my first high school Angular project.
 
 # Dependency 
 This project depends on the APIs provided in other project at (https://github.com/yinbri/my-rewards-api.git). The API project needs to installed and tested successfully first so that this project has the needed APIs in place.
@@ -23,12 +23,12 @@ V18.14.2
 
 # Create an Angular application
 ```
-    >ng new my-rewards
+    >ng new my-rewards-web
 ```
 
 # Test the application
 ```
-    >cd my-rewards
+    >cd my-rewards-web
     >ng serve --port 8081 --open
     The "--open" flag will open browser to access the application
 ```
