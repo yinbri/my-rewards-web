@@ -33,14 +33,18 @@ V18.14.2
     The "--open" flag will open browser to access the application
 ```
 
-# Install ag grid (https://ag-grid.com/angular-data-grid/getting-started/#grid-dependencies)
+# Install ag grid 
+The grid can be found at https://ag-grid.com/angular-data-grid/getting-started/#grid-dependencies
+
 ```
-    >press ctrl-c to stop the app
+    >press ctrl-c to stop the app if it is running
     >npm install --save ag-grid-community
     >npm install --save ag-grid-angular
 ```
 
-# Install ngx-device-detector, which will be used to detect mobile vs not-mobile
+# Install ngx-device-detector
+It is used by this project to detect whether mobile browser is used. This project adjust the contents to fit into mobiel that has smaller screens.
+
 ```
     >npm install ngx-device-detector --save
 ```
