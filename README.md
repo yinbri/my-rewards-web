@@ -62,7 +62,7 @@ It is used by this project to detect whether mobile browser is used. This projec
     >ng g c components/rewards
 ```
 
-3 Code documentation
+# Code documentation
 
 ### proxy.config.json
     It is a proxy that proxy all API request from Angular components to the Python API
