@@ -18,7 +18,11 @@ V18.14.2
 
     - Or upgrade if needed
   
-    >ng update @angular/cli @angular/cor
+    >ng update @angular/cli @angular/core
+
+    - if download code from Github
+
+    >npm install
 ```
 
 # Create an Angular application
