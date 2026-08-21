@@ -1,131 +1,126 @@
-# Context
-This project illustrate how to develop a web applicaiton with Angular and this is my first high school Angular project.
+# School Rewards Web
 
-# Dependency 
-This project depends on the APIs provided in other project at (https://github.com/yinbri/my-rewards-api.git). The API project needs to installed and tested successfully first so that this project has the needed APIs in place.
+A student engagement app for a high school rewards program. Students browse school events, enroll to bank points, and track their standing on a leaderboard; staff verify attendance from an admin console. Built with **Angular 15**, **TypeScript**, and **ag-Grid**.
 
-# Install Node.js (skip if you have it installed already)
+This is the frontend. The Flask + MongoDB backend lives in **[school-rewards-api](https://github.com/yinbri/school-rewards-api)**.
 
-Download Node.js from: https://nodejs.org/en/download/current/, e.g. Windows Installer 64-bit, and run the installation. This will also install NPM (NodeJS Package Manager). Test NodeJS installation
+<sub>Built in grade 11 (Feb–Mar 2023) as my first Angular application — see [Notes on the code](#notes-on-the-code) for an honest read on what I'd do differently now.</sub>
 
-```
->node --version
-V18.14.2
-```
-# Install Angular CLI
-```
-    >npm install -g @angular/cli
+<!--
+  Screenshot slot — drop a PNG at docs/screenshot.png and uncomment:
+  ![School Rewards Web](docs/screenshot.png)
+-->
 
-    - Or upgrade if needed
-  
-    >ng update @angular/cli @angular/core
+---
 
-    - if download code from Github
+## What it does
 
-    >npm install
-```
+The app has two distinct user journeys behind one navigation bar.
 
-# Create an Angular application
-```
-    >ng new my-rewards-web
-```
+**Students** sign up with a school email, browse the events they're eligible for, and enroll with a click. Enrolling banks *pending* points; once staff confirm attendance those become *earned* points. A rewards page shows both totals alongside the underlying activity history.
 
-# Test the application
-```
-    >cd my-rewards-web
-    >ng serve --port 8081 --open
-    The "--open" flag will open browser to access the application
-```
+**Staff** sign in through a separate admin login and get an editable grid of every student's activity records. Changing a row's status to `Attended` writes back through the API and moves that student's points from pending to earned.
 
-# Install ag grid 
-The grid can be found at https://ag-grid.com/angular-data-grid/getting-started/#grid-dependencies
+**Everyone** can see the leaderboard — the top students by total points — without signing in.
 
-```
-    >press ctrl-c to stop the app if it is running
-    >npm install --save ag-grid-community
-    >npm install --save ag-grid-angular
-```
+### Feature highlights
 
-# Install ngx-device-detector
-It is used by this project to detect whether mobile browser is used. This project adjust the contents to fit into mobiel that has smaller screens.
+- **Role-separated routing** — student and admin flows have independent logins, and the navbar shows different items depending on authentication state
+- **Editable data grids** — ag-Grid with sorting, filtering, and a dropdown cell editor that commits status changes straight to the API
+- **Responsive by detection** — `ngx-device-detector` identifies mobile browsers and the components trim non-essential UI to fit smaller screens
+- **Session persistence** — signed-in state survives a page refresh via `sessionStorage`
+- **Zero-CORS development** — a dev-server proxy forwards `/api/*` to Flask so both halves behave as one origin
 
-```
-    >npm install ngx-device-detector --save
+---
+
+## Architecture
+
+```mermaid
+flowchart TD
+    subgraph Angular["Angular SPA — localhost:8081"]
+        R["AppRoutingModule"]
+        R --> L["login"]
+        R --> AL["activitylist"]
+        R --> RW["rewards"]
+        R --> LB["leaderboard"]
+        R --> AD["admin"]
+        L & AL & RW & LB & AD --> CS["CommonService"]
+    end
+    CS -->|"HttpClient · /api/*"| P["proxy.config.json"]
+    P --> F["Flask API — localhost:3000"]
+    F --> M[("MongoDB")]
 ```
 
-# Add more components to create a skeleton
-```
-    >cd .\src\app
-    >ng g class models/activity --type=model
-    >ng g c components/about
-    >ng g c components/activitylist
-    >ng g c components/admin
-    >ng g c components/leaderboard
-    >ng g c components/login
-    >ng g c components/logout
-    >ng g c components/rewards
-```
+`CommonService` is the single seam between the UI and the backend: every component talks to it, and it owns all HTTP calls, authentication state, and the mobile flag. Swapping the backend means touching one file.
 
-# Code documentation
+---
 
-### proxy.config.json
-It is a proxy that proxy all API request from Angular components to the Python API hosted by the other project. All requests that have the "/api/" keyword included in URL will be proxyed to the Python API.
+## Running it locally
 
-### index.html
-This is the entry point and it contains the Angular app itself using a tag of <app-root>.
+**Prerequisites:** Node.js 18+, and the [school-rewards-api](https://github.com/yinbri/school-rewards-api) backend running on port 3000. Start the API first — the app has no mock mode.
 
-### app.modules.ts
-It contains all modules created in this application and imported modules including the AgGridModule.
-
-### app.component.ts
-It uses the ngx-device-detector library to determine whether the application is processing a request from mobile browser and if yes, it sets the value of the isMobile indicator to be True and save it in the commonService class as well.
-
-### app.component.html
-It is the home page of the application that contains the navigation bar, which displays "Sign Out", "Activities",  "Rewards" and "Admin" menu for signed in users. It uses the *ngIf Angular tag to hide HTML elements, such as it hides "About" for mobile users due to limited screen size on mobile.
-
-### app-routing.module.ts
-It contains the Angular Routes that maps an incoming URL to an Angular component.
-
-### about
-This component contains the static contents in the about.component.html file. It has my school's lego, name and instructions of how to use this application.
-
-### login
-The login.component.html presents email and password for user to enter. If username and password entered can't be found it will present error message. It binds the two data fields (username, password) on HTML with the data fields in the login.component.ts. The login.component.ts calls the commonService to process login request. If a login is a success, it records authentication as yes in the commonService and save username into session storage. It also navigates to the activity component so that user can see the activities after a successful log in. The same component supports enrollment as well.
-
-### activitylist
-The activitylist.html uses the AgGrid control to present activity list. The AgGrid has a tag named as <ag-grid-angular>. The list of parameters in the tag is to support adjustment of the default behavior of the grid. Two key inputs are [columnDef] that provides a list of columns, and [rowData] that provides that actual data for the grid to present. 
-The activitylist.ts contains column definitions of the grid. It also calls the commonService to retrieve the list of activities and assign it to the [rowData].
-
-### Refer to source codes for other components
-All code follow the same Angular component structure with each component contains ts file, html file and css file.
-
-# start the Angular web application
-```
-    >cd my-rewards-web
-    >ng serve --port 8081
+```bash
+git clone https://github.com/yinbri/school-rewards-web.git
+cd school-rewards-web
+npm install
+npm start -- --port 8081
 ```
 
-# access the web application from browser
-```
-    http://localhost:8081
-    or try the following if localhost does not work on your browser
-    http://[::1]:8081
+Open **http://localhost:8081**. (If `localhost` misbehaves, try `http://[::1]:8081`.)
+
+### Sign in with
+
+| Role | Username | Password | Entry point |
+|---|---|---|---|
+| Student | `brian@gmail.com` | `test` | **Student** in the navbar |
+| Admin | `admin` | `admin` | **Admin** in the navbar |
+
+### Other commands
+
+```bash
+npm run build     # production build to dist/
+npm test          # unit tests via Karma + Jasmine
 ```
 
-# Appendix
+---
 
-## Short reference to git commands
+## Project structure
+
 ```
-git init
-git add -A
-git commit -m 'Added my project'
-git branch -M main
-git remote add origin https://github.com/yinbri/my-rewards-web.git
-git push -u -f origin main
+src/
+├── app/
+│   ├── app-routing.module.ts        # Route table
+│   ├── app.component.*              # Shell: navbar + router outlet, mobile detection
+│   ├── components/
+│   │   ├── about/                   # Landing page and program explainer
+│   │   ├── login/                   # Student sign-in and sign-up (one component, two routes)
+│   │   ├── logout/
+│   │   ├── activitylist/            # Browsable events, enroll/unenroll (ag-Grid)
+│   │   ├── rewards/                 # A student's points: pending vs. earned
+│   │   ├── leaderboard/             # Top students, public
+│   │   └── admin/                   # Staff login + attendance verification grid
+│   ├── models/activity.ts
+│   └── services/common.service.ts   # All API calls and auth state
+├── proxy.config.json                # /api/* → http://localhost:3000
+└── assets/
 ```
-## Push changed code to Github
-```
-git add READEME.md
-git commit -m "updated README.md"
-git push -u -f origin main
-```
+
+---
+
+## Notes on the code
+
+This was my first Angular project, written for a high school assignment, and I've left it as it was rather than quietly modernising it. Things I'd do differently today:
+
+- **Authentication is client-side only.** A `sessionStorage` key gates the UI; nothing stops a user from navigating straight to `/admin`. Real auth needs a server-issued token and Angular route guards.
+- **No route guards at all** — `CanActivate` is exactly the tool for this and I didn't know it existed yet.
+- **`CommonService` is a god object.** Student calls, admin calls, auth state, and device state all live in one class; splitting it per-domain would scale better.
+- **Responses are typed `any`.** Interfaces for the API contract would catch shape mismatches at compile time — the whole reason to use TypeScript.
+- **The generated spec files are untouched.** Component tests were beyond the scope of the assignment.
+
+What it does demonstrate: component-based architecture, service-mediated HTTP, reactive state with RxJS `Subject`, routing with conditional navigation, third-party grid integration, and building a frontend against an API I designed myself.
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).

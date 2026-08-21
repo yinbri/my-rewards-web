@@ -1,6 +1,8 @@
 {
-  "name": "my-rewards",
-  "version": "0.0.0",
+  "name": "school-rewards-web",
+  "version": "1.0.0",
+  "description": "Angular frontend for a high school student activity rewards program.",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
